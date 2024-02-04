@@ -1,43 +1,27 @@
-use std::env;
+use std::{env, u32};
 
 use lazy_static::lazy_static;
 use library::get_lines;
-use regex::{Regex, RegexSet};
+use regex::Regex;
 
 fn main() {
-    // let args: Vec<String> = env::args().collect();
-    // if args.len() != 2 {
-    //     println!("Requires single filename as argument");
-    // }
+    let args: Vec<String> = env::args().collect();
+    if args.len() != 2 {
+        println!("Requires single filename as argument");
+    }
 
-    // let lines = get_lines(args[1].as_str());
-    // let mut sum = 0;
+    let lines = get_lines(args[1].as_str());
+    let mut part_one_sum = 0;
+    let mut part_two_sum = 0;
 
-    // for line in lines {
-    //     sum += get_number(line);
-    // }
+    for line in lines {
+        part_one_sum += get_number(line.clone());
+        let digits = get_digits(line);
+        part_two_sum += get_line_number(digits);
+    }
 
-    // println!("Part 1: {}", sum);
-
-    // let regex = Regex::new(r"one|two|three|four|five|six|seven|eight|nine|\d").unwrap();
-    // let numbers: Vec<&str> = regex.find_iter("sevenine").map(|m| m.as_str()).collect();
-    // println!("{:?}", numbers);
-
-    let patterns = ["seven", "nine", r"\d"];
-    let set = RegexSet::new(patterns).unwrap();
-    let regexes: Vec<_> = set
-        .patterns()
-        .iter()
-        .map(|pat| Regex::new(pat).unwrap())
-        .collect();
-    let matches: Vec<&str> = set
-        .matches("sevenine1")
-        .into_iter()
-        .map(|index| &regexes[index])
-        .map(|re| re.find("sevenine1").unwrap().as_str())
-        .collect();
-
-    println!("{:?}", matches);
+    println!("Part 1: {}", part_one_sum);
+    println!("Part 2: {}", part_two_sum);
 }
 
 fn get_number(line: String) -> u32 {
@@ -60,26 +44,30 @@ fn get_number(line: String) -> u32 {
 }
 
 fn get_digits(line: String) -> Vec<u32> {
-    lazy_static! {
-        static ref SET: RegexSet = RegexSet::new([
-            "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", r"\d"
-        ])
-        .unwrap();
-        static ref REGEXES: Vec<Regex> = SET
-            .patterns()
-            .iter()
-            .map(|pat| Regex::new(pat).unwrap())
-            .collect();
-    }
+    let line_formatted = line
+        .replace("one", "one1one")
+        .replace("two", "two2two")
+        .replace("three", "three3three")
+        .replace("four", "four4four")
+        .replace("five", "five5five")
+        .replace("six", "six6six")
+        .replace("seven", "seven7seven")
+        .replace("eight", "eight8eight")
+        .replace("nine", "nine9nine");
 
-    let line_str = line.as_str();
+    line_formatted
+        .chars()
+        .filter_map(|character| character.to_digit(10))
+        .collect()
+}
 
-    let matches: Vec<&str> = SET
-        .matches(line_str)
-        .into_iter()
-        .map(|index| &REGEXES[index])
-        .map(|re| re.find(line_str).unwrap().as_str())
-        .collect();
+fn get_line_number(line_digits: Vec<u32>) -> u32 {
+    let mut num_string = line_digits.first().expect("Empty line").to_string();
+    num_string.push_str(line_digits.last().expect("Empty line").to_string().as_str());
+
+    num_string
+        .parse::<u32>()
+        .expect("Failed to parse string to number")
 }
 
 #[cfg(test)]
@@ -119,5 +107,23 @@ mod tests {
         assert_eq!(digits.len(), 2);
         assert_eq!(digits[0], 7);
         assert_eq!(digits[1], 9);
+    }
+
+    #[test]
+    fn test_get_line_number() {
+        let number = get_line_number(get_digits(String::from("two1nine")));
+        assert_eq!(number, 29);
+    }
+
+    #[test]
+    fn test_get_line_number_overlapping() {
+        let number = get_line_number(get_digits(String::from("sevenine")));
+        assert_eq!(number, 79);
+    }
+
+    #[test]
+    fn test_get_line_number_one_digit() {
+        let number = get_line_number(get_digits(String::from("four")));
+        assert_eq!(number, 44);
     }
 }
