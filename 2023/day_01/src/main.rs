@@ -1,16 +1,13 @@
-use std::{env, u32};
+use std::u32;
 
 use lazy_static::lazy_static;
-use library::get_lines;
+use library::{get_filename_arg, get_lines};
 use regex::Regex;
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
-    if args.len() != 2 {
-        println!("Requires single filename as argument");
-    }
+    let file_name = get_filename_arg();
 
-    let lines = get_lines(args[1].as_str());
+    let lines = get_lines(file_name.as_str());
     let mut part_one_sum = 0;
     let mut part_two_sum = 0;
 

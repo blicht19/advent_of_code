@@ -1,5 +1,6 @@
 use std::fs::File;
 use std::io::{BufRead, BufReader};
+use std::{env, process::exit};
 
 // From this StackOverflow answer https://stackoverflow.com/a/35820003
 pub fn get_lines(file_path: &str) -> Vec<String> {
@@ -10,6 +11,15 @@ pub fn get_lines(file_path: &str) -> Vec<String> {
         .lines()
         .map(|line| line.expect("Failed to parse line"))
         .collect()
+}
+
+pub fn get_filename_arg() -> String {
+    let args: Vec<String> = env::args().collect();
+    if args.len() != 2 {
+        println!("Requires single filename as argument");
+        exit(1);
+    }
+    args[1].clone()
 }
 
 #[cfg(test)]
