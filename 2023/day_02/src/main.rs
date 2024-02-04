@@ -18,10 +18,13 @@ fn main() {
     let lines = get_lines(file_name.as_str());
 
     let mut part_one_sum: u32 = 0;
+    let mut part_two_sum: u32 = 0;
     for line in lines {
-        part_one_sum += get_id_value(line);
+        part_one_sum += get_id_value(line.clone());
+        part_two_sum += get_power(line);
     }
     println!("Part one: {}", part_one_sum);
+    println!("Part two: {}", part_two_sum);
 }
 
 fn get_number(numeric_string: &str) -> u32 {
@@ -90,6 +93,31 @@ fn get_id_value(line: String) -> u32 {
     }
 }
 
+fn get_power(line: String) -> u32 {
+    let substrings = line.split(";").collect::<Vec<&str>>();
+    let mut counts = vec![];
+    for substring in substrings {
+        counts.push(get_color_counts(substring));
+    }
+    let red = counts
+        .iter()
+        .map(|count| count.red)
+        .max()
+        .expect("Failed to get max red value");
+    let green = counts
+        .iter()
+        .map(|count| count.green)
+        .max()
+        .expect("Failed to get max green value");
+    let blue = counts
+        .iter()
+        .map(|count| count.blue)
+        .max()
+        .expect("Failed to get max blue value");
+
+    red * green * blue
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -151,6 +179,16 @@ mod tests {
                 "Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red"
             )),
             0
+        );
+    }
+
+    #[test]
+    fn test_get_power() {
+        assert_eq!(
+            get_power(String::from(
+                "Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red"
+            )),
+            1560
         );
     }
 }
