@@ -225,7 +225,7 @@ mod tests {
     #[should_panic(expected = "Invalid card value found: f")]
     fn test_get_hand_histogram_invalid_card() {
         let cards = String::from("f");
-        let histogram = get_hand_histogram(&cards);
+        let _histogram = get_hand_histogram(&cards);
     }
 
     #[test]
