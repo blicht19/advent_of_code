@@ -7,7 +7,7 @@ use regex::Regex;
 fn main() {
     let file_name = get_filename_arg();
 
-    let lines = get_lines(file_name.as_str());
+    let lines = get_lines(&file_name);
     let mut part_one_sum = 0;
     let mut part_two_sum = 0;
 

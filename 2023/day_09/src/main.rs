@@ -4,7 +4,7 @@ use library::{get_filename_arg, get_lines};
 
 fn main() {
     let file_name = get_filename_arg();
-    let input = get_lines(file_name.as_str());
+    let input = get_lines(&file_name);
     let mut lines = vec![];
 
     for line in input {

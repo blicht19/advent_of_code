@@ -5,7 +5,7 @@ use regex::Regex;
 
 fn main() {
     let file_name = get_filename_arg();
-    let mut lines = get_lines(file_name.as_str());
+    let mut lines = get_lines(&file_name);
     lines.retain(|f| !f.is_empty());
 
     let mut maps: Vec<HashMap<Range, Range>> = vec![];

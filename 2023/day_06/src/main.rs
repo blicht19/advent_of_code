@@ -6,7 +6,7 @@ use regex::Regex;
 
 fn main() {
     let file_name = get_filename_arg();
-    let lines = get_lines(file_name.as_str());
+    let lines = get_lines(&file_name);
     let part_one_times = get_numbers(&lines[0]);
     let part_two_distances = get_numbers(&lines[1]);
     let part_one_races = get_boat_races(part_one_times, part_two_distances);

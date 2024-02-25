@@ -6,7 +6,7 @@ use regex::Regex;
 
 fn main() {
     let file_path = get_filename_arg();
-    let lines = get_lines(file_path.as_str());
+    let lines = get_lines(&file_path);
 
     println!("Part 1: {}", part_one_sum(&lines));
     println!("Part 2: {}", part_two_sum(&lines));

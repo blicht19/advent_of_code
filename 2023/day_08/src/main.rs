@@ -3,7 +3,7 @@ use std::collections::HashMap;
 
 fn main() {
     let file_name = get_filename_arg();
-    let lines = get_lines(file_name.as_str());
+    let lines = get_lines(&file_name);
     let right_left: Vec<char> = lines[0].replace("\n", "").chars().collect();
     let map_lines: Vec<String> = lines[2..lines.len()]
         .into_iter()

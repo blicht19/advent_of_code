@@ -5,7 +5,7 @@ use library::{get_filename_arg, get_lines};
 
 fn main() {
     let file_name = get_filename_arg();
-    let lines = get_lines(file_name.as_str());
+    let lines = get_lines(&file_name);
     let mut hands = get_hands(lines);
 
     println!("Part 1: {}", get_sum(&mut hands, part_one_compare_cards));

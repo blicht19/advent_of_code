@@ -4,7 +4,7 @@ use regex::Regex;
 
 fn main() {
     let file_name = get_filename_arg();
-    let input_vec = get_two_dimensional_vector(file_name.as_str());
+    let input_vec = get_two_dimensional_vector(&file_name);
 
     let part_one_sum = part_one_sum(&input_vec);
     println!("Part 1: {}", part_one_sum);
