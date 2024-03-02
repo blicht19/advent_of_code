@@ -130,6 +130,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "day_15"
+version = "0.1.0"
+dependencies = [
+ "library",
+]
+
+[[package]]
 name = "lazy_static"
 version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
