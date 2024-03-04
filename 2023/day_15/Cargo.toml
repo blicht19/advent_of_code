@@ -7,3 +7,5 @@ edition = "2021"
 
 [dependencies]
 library = { path = "../../library" }
+lazy_static = "1.4.0"
+regex = "1.10.3"
