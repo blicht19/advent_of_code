@@ -6,6 +6,6 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-json = "0.12.4"
 library = { path = "../../library" }
 regex = "1.10.3"
+lazy_static = "1.4.0"
