@@ -1,8 +1,7 @@
-use core::fmt;
 use std::collections::HashSet;
 
 use lazy_static::lazy_static;
-use library::{get_filename_arg, get_two_dimensional_vector};
+use library::{get_filename_arg, get_two_dimensional_vector, Directions};
 use regex::Regex;
 
 fn main() {
@@ -88,25 +87,6 @@ fn get_sum(input: &Vec<Vec<char>>) -> usize {
     }
 
     sum
-}
-
-enum Directions {
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT,
-}
-
-impl fmt::Display for Directions {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let string_rep = match self {
-            Self::UP => "UP",
-            Self::DOWN => "DOWN",
-            Self::LEFT => "LEFT",
-            Self::RIGHT => "RIGHT",
-        };
-        write!(f, "{string_rep}")
-    }
 }
 
 fn beam_string_format(row: usize, column: usize, direction: Directions) -> String {
