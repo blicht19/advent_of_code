@@ -86,7 +86,7 @@ where
     count
 }
 
-/* leastCommonMultiple based on this StackOverflow answer:
+/* least_common_multiple based on this StackOverflow answer:
  * https://stackoverflow.com/a/31302607 */
 
 fn greatest_common_denominator(a: usize, b: usize) -> usize {
